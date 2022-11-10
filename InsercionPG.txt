@@ -1,0 +1,60 @@
+Create Table usuario(
+cedula bigint primary key,
+nombre varchar(20),
+apellido varchar(20),
+departamento varchar(40),
+ciudad varchar(40)
+);
+
+Create table nivel(
+codigo integer primary key,
+tipo varchar(40)
+);
+Create table forma_de_pago(
+codigo_pago integer primary key,
+tipo varchar(40)
+);
+Create table materia(
+codigo integer primary key,
+nombre varchar(40)
+);
+
+Create table curso(
+course_id integer primary key,
+course_title varchar(150),
+url varchar(150),
+price integer,
+content_duration float,
+published_date date,
+published_time time,
+rating float,
+num_suscribers int,
+num_lectures int,
+codigo_nivel int,
+codigo_materia int,
+codigo_forma_pago int,
+foreign key(codigo_nivel) references nivel,
+foreign key(codigo_materia) references materia,
+foreign key(codigo_forma_pago) references forma_de_pago
+);
+
+Create table suscripcion(
+id integer primary key,
+id_curso int,
+cedula bigint,
+toma varchar(2),
+foreign key(id_curso) references curso,
+foreign key(cedula) references usuario
+);
+
+insert into nivel VALUES(1,'Beginner Level'),(2,'Intermediate Level'),(3,'Expert Level'),(4, 'All Levels');
+insert into forma_de_pago VALUES(1,'Free'),(2,'Paid');
+insert into materia VALUES(111,'Web Development'),(222,'Musical Instruments'),(333,'Business Finance'),(444, 'Graphic Design');
+
+COPY curso FRom 'D:\Santy UR\Tercer semestre\Ing de datos\Proyecto\curso.csv' DELIMITER ',' CSV HEADER;
+COPY usuario FROM 'D:\Santy UR\Tercer semestre\Ing de datos\Proyecto\usuario.csv' DELIMITER ',' CSV HEADER;
+COPY suscripcion FROM 'D:\Santy UR\Tercer semestre\Ing de datos\Proyecto\suscripcion.csv' DELIMITER ',' CSV HEADER; 
+set datestyle to postgres, DMY; 
+show datestyle;
+
+select * from materia;
